@@ -4,8 +4,8 @@ This project is intended as a demonstration of Web-based Augmented Reality techn
 
 ## Setup
 
-Clone the repository and use 'npm install' to install dependencies. 
+Clone the repository and use `npm install` to install dependencies. 
 
-We use webpack to package java code into a single 'main.js' file. When code has been changed in the 'src' folder, use the 'npm run build' command to build it. This has been set up as the default build task in Visual Studio Code.
+We use webpack to package java code into a single `main.js` file. When code has been changed in the `src` folder, use the `npm run build` command to build it. This has been set up as the default build task in Visual Studio Code.
 
-Run a server from the 'dist' folder to see the app in action.
+Run a server from the `dist` folder to see the app in action.
