@@ -1,3 +1,5 @@
+require('mind-ar/dist/mindar-image.prod.js');
 require('aframe');
+require('mind-ar/dist/mindar-image-aframe.prod.js');
 require('aframe-extras');
-import "./components/ar-scene.js";
+require('./components/webxr-session.js');

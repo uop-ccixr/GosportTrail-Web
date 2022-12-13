@@ -20,6 +20,8 @@ object-assign
 
 /*! (C) WebReflection Mit Style License */
 
+/*! For license information please see mindar-image.prod.js.LICENSE.txt */
+
 /**
  * @license
  * Copyright 2010-2022 Three.js Authors
