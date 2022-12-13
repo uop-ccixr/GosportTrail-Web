@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Gosport Trail</title>
+        <title>Gosport Trail Web AR Demo</title>
         <link rel="icon" type="image/x-icon" href="./art/ui/favicon.ico">
 
         <script>
             // WebXR requires https, redirect the user if needed
-            if (location.hostname !== 'localhost' && window.location.protocol === 'http:') window.location.protocol = 'https:';
+            if (window.location.protocol === 'http:') window.location.protocol = 'https:';
         </script>
 
         <script src="main.js"></script> <!-- Import compiled java code -->
