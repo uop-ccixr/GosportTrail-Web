@@ -1,0 +1,22 @@
+{
+  "name": "gosporttrailweb",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "keywords": [],
+  "author": "University of Portsmouth CCIXR",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.0"
+  },
+  "dependencies": {
+    "aframe": "^1.3.0",
+    "aframe-extras": "^6.1.1",
+    "mind-ar": "^1.1.5"
+  }
+}

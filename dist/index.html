@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Gosport Trail</title>
+        <link rel="icon" type="image/x-icon" href="./art/ui/favicon.ico">
+
+        <script>
+            // WebXR requires https, redirect the user if needed
+            if (location.hostname !== 'localhost' && window.location.protocol === 'http:') window.location.protocol = 'https:';
+        </script>
+
+        <script src="main.js"></script> <!-- Import compiled java code -->
+
+        <style> 
+            .button-image {
+                margin: auto;
+            }
+            #user-interface {
+                position: fixed;
+                width: 100%;
+                height: 100%;
+                top: 10%;
+                left: 10%;
+                right: 10%;
+                bottom: 10%;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- A-Frame Scene -->
+        <a-scene 
+            webxr="requiredFeatures: hit-test, dom-overlay, local-floor; overlayElement: #user-interface;" 
+                ar-hit-test="type: map;" 
+                vr-mode-ui="enabled: false" 
+            background="color: white">
+
+            <a-entity id="lighting">
+                <a-entity light="type: ambient; color: #BBB; intensity: 1.0"></a-entity>
+                <a-entity light="type: directional; color: #FFF; intensity: 2.0; castShadow: true" position="-0.5 1 1"></a-entity>
+            </a-entity>
+
+            <a-camera>
+                <!--<a-cursor visible="false"></a-cursor> TODO: Use for selection-->
+            </a-camera>
+
+            <a-assets id="hit-test-models">
+                <a-asset-item id="carriage-gltf" src="./art/SM_Carriage.gltf"></a-asset-item>
+                <a-asset-item id="train-gltf" src="./art/SM_Train.gltf"></a-asset-item>
+                <a-asset-item id="tide-clock-gltf" src="./art/SM_TideClock.gltf"></a-asset-item>
+            </a-assets>
+
+            <!-- TODO: Marker tracking
+            <a-assets id="ar-marker-images">
+                <img id= "ar-image-powder-monkey" src="./art/ui/T_Marker_PowderMonkeyBrewery.png"></img>
+                <img id= "ar-image-explosion-museum" src="./art/ui/T_Marker_ExplosionMuseum.png"></img>
+                <img id= "ar-image-tide-clock" src="./art/ui/T_Marker_Clock.png"></img>
+            </a-assets>
+
+            <a-entity xr-image-tracking></a-entity>
+            <a-entity id="ar-markers">
+                <a-entity id= "ar-marker-powder-monkey" xr-tracked-image="element: #ar-image-powder-monkey; widthInMeters: 0.1">
+                    <a-plane scale="0.1 0.1 0.1" visible="false" event-set__enter="_event: mouseenter; _target: #powder-monkey-text; visible: true" event-set__leave="_event: mouseleave; _target: #powder-monkey-text; visible: false">>
+                        <a-text id="powder-monkey-text" value="Powder Monkey Brewery" align="center" scale="0.1 0.1 0.1" color="#FFF" visible="false" geometry="primitive: plane; width: 1.75" material="color: #333"></a-text>
+                    </a-plane>
+                </a-entity>
+                <a-entity id= "ar-marker-explosion-museum" xr-tracked-image="element: #ar-image-explosion-museum; widthInMeters: 0.1">
+                    <a-plane scale="0.1 0.1 0.1" visible="false" event-set__enter="_event: mouseenter; _target: #powder-monkey-text; visible: true" event-set__leave="_event: mouseleave; _target: #powder-monkey-text; visible: false">>
+                        <a-text id="explosion-museum-text" value="Explosion Museum of Naval Firepower" align="center" scale="0.1 0.1 0.1" color="#FFF" visible="false" geometry="primitive: plane; width: 1.75" material="color: #333"></a-text>
+                    </a-plane>
+                </a-entity>
+                <a-entity id= "ar-marker-tide-clock" xr-tracked-image="element: #ar-image-powder-monkey; widthInMeters: 0.1">
+                    <a-plane scale="0.1 0.1 0.1" visible="false" event-set__enter="_event: mouseenter; _target: #powder-monkey-text; visible: true" event-set__leave="_event: mouseleave; _target: #powder-monkey-text; visible: false">>
+                        <a-text id="tide-clock-text" value="Tide Clock" align="center" scale="0.1 0.1 0.1" color="#FFF" visible="false" geometry="primitive: plane; width: 1.75" material="color: #333"></a-text>
+                    </a-plane>
+                </a-entity>
+            </a-entity>
+            -->
+            
+            <a-entity id="hit-test-targets">
+                <a-entity id="carriage" gltf-model="#carriage-gltf" visible="false" animation-mixer="loop: pingpong;"></a-entity>
+                <a-entity id="train" gltf-model="#train-gltf" visible="false" scale="0.1 0.1 0.1"></a-entity>
+                <a-entity id="tide-clock" gltf-model="#tide-clock-gltf" visible="false"></a-entity>
+            </a-entity>
+            <a-entity id="ar-scenes">
+                <a-entity id="carriage-scene" ar-scene="hitTestTargetElement: #carriage; elementToHide: #ar-entry-buttons; elementToShow: #ar-exit-button;"></a-entity>
+                <a-entity id="train-scene" ar-scene="hitTestTargetElement: #train; elementToHide: #ar-entry-buttons; elementToShow: #ar-exit-button;"></a-entity>
+                <a-entity id="tide-clock-scene" ar-scene="hitTestTargetElement: #tide-clock; elementToHide: #ar-entry-buttons; elementToShow: #ar-exit-button;"></a-entity>
+            </a-entity>
+
+
+            
+        </a-scene>
+
+        <!-- Interface overlay -->
+        <div id ="user-interface">
+            <h1>Gosport Trail WebAR Demo</h1>
+            <p>Tap the images to load an AR asset, wait for the ground marker to appear, then tap to place!</p>
+            <!-- <button id="start-scanning" onclick="">Start Scanning</button> TODO: Trigger AR Scene without hit testing -->
+            <div id="ar-entry-buttons">
+                <button id="ar-powder-monkey-button" class="button-image" type="button" onclick="document.querySelector('#carriage-scene').components['ar-scene'].events.startARScene();"> 
+                    <img src="./art/ui/T_Marker_PowderMonkeyBrewery.png" height="64" width="64"></img>
+                </button>
+                <button id="ar-explosion-museum-button" class="button-image" type="button" onclick="document.querySelector('#train-scene').components['ar-scene'].events.startARScene();"> 
+                    <img src="./art/ui/T_Marker_ExplosionMuseum.png" height="64" width="64"></img>
+                </button>
+                <button id="ar-tide-clock-button" class="button-image" type="button" onclick="document.querySelector('#tide-clock-scene').components['ar-scene'].events.startARScene();"> 
+                    <img src="./art/ui/T_Marker_Clock.png" height="64" width="64"></img>
+                </button>
+            </div>
+            <div>
+                <button id="ar-exit-button" class="button-image" type="button" style="visibility: hidden;" onclick="document.querySelector('a-scene').exitVR();">
+                    <img src="./art/ui/T_Icon_Back.png" height="64" width="64"></img>
+                </button>
+            </div>
+        </div>
+    </body>
+</html>
