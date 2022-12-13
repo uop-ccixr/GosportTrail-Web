@@ -51,19 +51,19 @@
 
             <a-entity id="ar-markers">
                 <a-entity id= "ar-marker-powder-monkey">
-                    <a-box color="red"></a-box>
+                    <a-box color="red" visible="false"></a-box>
                     <a-plane scale="0.1 0.1 0.1" visible="false" event-set__enter="_event: mouseenter; _target: #powder-monkey-text; visible: true" event-set__leave="_event: mouseleave; _target: #powder-monkey-text; visible: false">>  
                         <a-text id="powder-monkey-text" value="Powder Monkey Brewery" align="center" scale="0.1 0.1 0.1" color="#FFF" visible="false" geometry="primitive: plane; width: 1.75" material="color: #333"></a-text>
                     </a-plane>
                 </a-entity>
                 <a-entity id= "ar-marker-explosion-museum">
-                    <a-sphere color="green"></a-sphere>
+                    <a-sphere color="green" visible="false"></a-sphere>
                     <a-plane scale="0.1 0.1 0.1" visible="false" event-set__enter="_event: mouseenter; _target: #explosion-museum-text; visible: true" event-set__leave="_event: mouseleave; _target: #explosion-museum-text; visible: false">>
                         <a-text id="explosion-museum-text" value="Explosion Museum of Naval Firepower" align="center" scale="0.1 0.1 0.1" color="#FFF" visible="false" geometry="primitive: plane; width: 1.75" material="color: #333"></a-text>
                     </a-plane>
                 </a-entity>
                 <a-entity id= "ar-marker-tide-clock">
-                    <a-torus color="blue"></a-torus>
+                    <a-torus color="blue" visible="false"></a-torus>
                     <a-plane scale="0.1 0.1 0.1" visible="false" event-set__enter="_event: mouseenter; _target: #tide-clock-text; visible: true" event-set__leave="_event: mouseleave; _target: #tide-clock-text; visible: false">>
                         <a-text id="tide-clock-text" value="Tide Clock" align="center" scale="0.1 0.1 0.1" color="#FFF" visible="false" geometry="primitive: plane; width: 1.75" material="color: #333"></a-text>
                     </a-plane>
