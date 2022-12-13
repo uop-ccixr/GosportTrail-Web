@@ -3,3 +3,6 @@
 
 # Blender autosaves 
 *.blend1
+
+# VS Code workspace
+*.code-workspace
