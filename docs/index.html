@@ -78,9 +78,9 @@
                 <a-entity id="tide-clock" gltf-model="#tide-clock-gltf" visible="false"></a-entity>
             </a-entity>
             <a-entity id="webxr-scenes">
-                <a-entity id="carriage-scene" webxr-session="hitTestTargetElement: #carriage; elementToHide: #ar-entry-buttons; elementToShow: #ar-exit-button;"></a-entity>
-                <a-entity id="train-scene" webxr-session="hitTestTargetElement: #train; elementToHide: #ar-entry-buttons; elementToShow: #ar-exit-button;"></a-entity>
-                <a-entity id="tide-clock-scene" webxr-session="hitTestTargetElement: #tide-clock; elementToHide: #ar-entry-buttons; elementToShow: #ar-exit-button;"></a-entity>
+                <a-entity id="carriage-scene" webxr-session="hitTestTargetElement: #carriage; elementsToHide: #ar-entry-buttons; elementsToShow: #ar-exit-button;"></a-entity>
+                <a-entity id="train-scene" webxr-session="hitTestTargetElement: #train; elementsToHide: #ar-entry-buttons; elementsToShow: #ar-exit-button;"></a-entity>
+                <a-entity id="tide-clock-scene" webxr-session="hitTestTargetElement: #tide-clock; elementsToHide: #ar-entry-buttons; elementsToShow: #ar-exit-button;"></a-entity>
             </a-entity>
 
 
@@ -105,7 +105,7 @@
                     <img src="./art/ui/T_Marker_Clock.png" height="64" width="64"></img>
                 </button>
             </div>
-            
+
             <div>
                 <button id="ar-exit-button" class="button-image" type="button" style="visibility: hidden;" onclick="document.querySelector('a-scene').exitVR();">
                     <img src="./art/ui/T_Icon_Back.png" height="64" width="64"></img>

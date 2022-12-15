@@ -43,8 +43,8 @@ AFRAME.registerComponent('webxr-session', {
             this.el.sceneEl.addEventListener('exit-vr', this.events.stopARSession);
     
             this.el.sceneEl.enterAR();
-            this.visibilityToggle.setElementsVisibility(elementsToHide, "hidden");
-            this.visibilityToggle.setElementsVisibility(elementsToShow, "visible")
+            this.visibilityToggle.setElementsVisibility(this.data.elementsToHide, "hidden");
+            this.visibilityToggle.setElementsVisibility(this.data.elementsToShow, "visible")
         },
     
         stopARSession: function () {
@@ -58,8 +58,8 @@ AFRAME.registerComponent('webxr-session', {
             this.el.sceneEl.setAttribute('ar-hit-test', 'enabled', false);
     
             this.el.sceneEl.exitVR();
-            this.visibilityToggle.setElementsVisibility(elementsToHide, "visibile");
-            this.visibilityToggle.setElementsVisibility(elementsToShow, "hidden")
+            this.visibilityToggle.setElementsVisibility(this.data.elementsToHide, "visibile");
+            this.visibilityToggle.setElementsVisibility(this.data.elementsToShow, "hidden")
         }
     }
     
