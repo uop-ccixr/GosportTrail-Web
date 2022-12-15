@@ -1,16 +1,21 @@
-require('aframe');
-
 // Re-usable setup for AR scenes containing startup / shutdown behaviour and the hit test target
 AFRAME.registerComponent('webxr-session', {
+    dependencies: ['element-visibility'],
+
     schema: {
         hitTestTargetElement: {type: "selector"},
-        elementToHide: {type: "selector"},
-        elementToShow: {type: "selector"}
+        elementsToHide: {type: ["selector"]},
+        elementsToShow: {type: ["selector"]}
     },
 
     init: function () {
         this.isActive = false;
+        this.el.setAttribute('element-visibility');
+        this.visibilityToggle = this.el.components['element-visibility'];
     },
+
+
+
     events: {
         startARSession: function () {
             // Check if the AR scene is already running, make it exit the last one first if so.
@@ -38,8 +43,8 @@ AFRAME.registerComponent('webxr-session', {
             this.el.sceneEl.addEventListener('exit-vr', this.events.stopARSession);
     
             this.el.sceneEl.enterAR();
-            this.data.elementToHide.style.visibility = "hidden";
-            this.data.elementToShow.style.visibility = "visible";
+            this.visibilityToggle.setElementsVisibility(elementsToHide, "hidden");
+            this.visibilityToggle.setElementsVisibility(elementsToShow, "visible")
         },
     
         stopARSession: function () {
@@ -53,8 +58,8 @@ AFRAME.registerComponent('webxr-session', {
             this.el.sceneEl.setAttribute('ar-hit-test', 'enabled', false);
     
             this.el.sceneEl.exitVR();
-            this.data.elementToHide.style.visibility = "visible";
-            this.data.elementToShow.style.visibility = "hidden";
+            this.visibilityToggle.setElementsVisibility(elementsToHide, "visibile");
+            this.visibilityToggle.setElementsVisibility(elementsToShow, "hidden")
         }
     }
     

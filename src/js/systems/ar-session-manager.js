@@ -1,5 +1,3 @@
-require('aframe');
-
 // Manages ar-scene components using webxr and mind-ar
 AFRAME.registerSystem('ar-session-manager', {
     schema: {

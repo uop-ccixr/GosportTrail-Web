@@ -33,7 +33,7 @@
             webxr="requiredFeatures: hit-test, dom-overlay, local-floor; overlayElement: #user-interface;" 
                 ar-hit-test="type: map;" 
                 vr-mode-ui="enabled: false" 
-            mindar-image="imageTargetSrc: ./markers.mind;"
+            mindar-image="imageTargetSrc: ./markers.mind; autoStart: false;"
         >
 
             <a-entity id="lighting">
@@ -91,23 +91,27 @@
         <div id ="user-interface">
             <h1>Gosport Trail WebAR Demo</h1>
             <p>Tap the images to load an AR asset, wait for the ground marker to appear, then tap to place!</p>
-            <!-- <button id="start-scanning" onclick="">Start Scanning</button> TODO: Trigger AR Scene without hit testing -->
+
+            <button id="start-scanning" onclick="">Start Scanning</button>
+
             <div id="ar-entry-buttons">
-                <button id="ar-powder-monkey-button" class="button-image" type="button" onclick="document.querySelector('#carriage-scene').components['webxr-session'].events.startARScene();"> 
+                <button id="ar-powder-monkey-button" class="button-image" type="button" onclick="document.querySelector('#carriage-scene').components['webxr-session'].events.startARSession();"> 
                     <img src="./art/ui/T_Marker_PowderMonkeyBrewery.png" height="64" width="64"></img>
                 </button>
-                <button id="ar-explosion-museum-button" class="button-image" type="button" onclick="document.querySelector('#train-scene').components['webxr-session'].events.startARScene();"> 
+                <button id="ar-explosion-museum-button" class="button-image" type="button" onclick="document.querySelector('#train-scene').components['webxr-session'].events.startARSession();"> 
                     <img src="./art/ui/T_Marker_ExplosionMuseum.png" height="64" width="64"></img>
                 </button>
-                <button id="ar-tide-clock-button" class="button-image" type="button" onclick="document.querySelector('#tide-clock-scene').components['webxr-session'].events.startARScene();"> 
+                <button id="ar-tide-clock-button" class="button-image" type="button" onclick="document.querySelector('#tide-clock-scene').components['webxr-session'].events.startARSession();"> 
                     <img src="./art/ui/T_Marker_Clock.png" height="64" width="64"></img>
                 </button>
             </div>
+            
             <div>
                 <button id="ar-exit-button" class="button-image" type="button" style="visibility: hidden;" onclick="document.querySelector('a-scene').exitVR();">
                     <img src="./art/ui/T_Icon_Back.png" height="64" width="64"></img>
                 </button>
             </div>
+
         </div>
     </body>
 </html>
