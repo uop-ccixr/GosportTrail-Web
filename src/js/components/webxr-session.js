@@ -10,6 +10,7 @@ AFRAME.registerComponent('webxr-session', {
 
     init: function () {
         this.isActive = false;
+        // this.el.addEventListener('click', this.events.startARSession); // Used for when the MindAR session is tracking the image.
     },
     events: {
         startARSession: function () {
@@ -28,8 +29,10 @@ AFRAME.registerComponent('webxr-session', {
             console.log("Entering AR");
 
             this.el.sceneEl.removeEventListener('exit-vr', this.events.startARSession);
+            //var mindar = this.el.sceneEl.systems['mindar-image-system'];
+            //if (mindar.video){mindar.stop();}
 
-            this.isActive = true
+            this.isActive = true;
             this.el.sceneEl.setAttribute('ar-hit-test', 'enabled', true);
             this.el.sceneEl.setAttribute('ar-hit-test', 'target', this.data.hitTestTargetElement);
             console.log("Hit test target set to " + this.data.hitTestTargetElement.id);
