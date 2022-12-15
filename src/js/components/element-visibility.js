@@ -1,8 +1,7 @@
 // Handles toggling of 
 AFRAME.registerComponent('element-visibility', {
     schema: {
-        show: {type: ["selector"]},
-        hide: {type: ["selector"]}
+
     },
 
     init: function () {
@@ -13,9 +12,10 @@ AFRAME.registerComponent('element-visibility', {
       * @Param {HTMLElement} elements Array of elements to toggle visibility on
       * @Param {} visibility HTML visibility string
       */
-    setElementsVisibility: function ([elements], newVisibility) {
-      elements.forEach(function (element) {
+    setElementsVisibility: function (elements, newVisibility) {
+      [elements].forEach(function (element) {
         element.style.visibility = newVisibility;
+        console.log(element.id + ' set to ' + newVisibility);
       });
     }
 
