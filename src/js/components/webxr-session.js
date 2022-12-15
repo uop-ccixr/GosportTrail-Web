@@ -1,19 +1,16 @@
+require('aframe');
+
 // Re-usable setup for AR scenes containing startup / shutdown behaviour and the hit test target
 AFRAME.registerComponent('webxr-session', {
-    dependencies: ['element-visibility'],
-
     schema: {
         hitTestTargetElement: {type: "selector"},
-        elementsToHide: {type: ["selector"]},
-        elementsToShow: {type: ["selector"]}
+        elementToHide: {type: "selector"},
+        elementToShow: {type: "selector"}
     },
 
     init: function () {
         this.isActive = false;
-        this.el.setAttribute('element-visibility');
-        this.xrRenderer = this.el.sceneEl.renderer.xr;
     },
-
     events: {
         startARSession: function () {
             // Check if the AR scene is already running, make it exit the last one first if so.
@@ -27,12 +24,12 @@ AFRAME.registerComponent('webxr-session', {
                     this.el.sceneEl.exitVR();
                 }
                 return;
-            } 
+            }
             console.log("Entering AR");
 
             this.el.sceneEl.removeEventListener('exit-vr', this.events.startARSession);
 
-            this.isActive = true;
+            this.isActive = true
             this.el.sceneEl.setAttribute('ar-hit-test', 'enabled', true);
             this.el.sceneEl.setAttribute('ar-hit-test', 'target', this.data.hitTestTargetElement);
             console.log("Hit test target set to " + this.data.hitTestTargetElement.id);
@@ -41,8 +38,8 @@ AFRAME.registerComponent('webxr-session', {
             this.el.sceneEl.addEventListener('exit-vr', this.events.stopARSession);
     
             this.el.sceneEl.enterAR();
-            this.el.components['element-visibility'].setElementsVisibility(this.data.elementsToHide, "hidden");
-            this.el.components['element-visibility'].setElementsVisibility(this.data.elementsToShow, "visible");
+            this.data.elementToHide.style.visibility = "hidden";
+            this.data.elementToShow.style.visibility = "visible";
         },
     
         stopARSession: function () {
@@ -56,9 +53,8 @@ AFRAME.registerComponent('webxr-session', {
             this.el.sceneEl.setAttribute('ar-hit-test', 'enabled', false);
     
             this.el.sceneEl.exitVR();
-
-            this.el.components['element-visibility'].setElementsVisibility(this.data.elementsToHide, "visible");
-            this.el.components['element-visibility'].setElementsVisibility(this.data.elementsToShow, "hidden");
+            this.data.elementToHide.style.visibility = "visible";
+            this.data.elementToShow.style.visibility = "hidden";
         }
     }
     
