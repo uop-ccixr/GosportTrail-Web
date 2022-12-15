@@ -33,7 +33,8 @@
             webxr="requiredFeatures: hit-test, dom-overlay, local-floor; overlayElement: #user-interface;" 
                 ar-hit-test="type: map;" 
                 vr-mode-ui="enabled: false" 
-            mindar-image="imageTargetSrc: ./markers.mind; autoStart: false;"
+            mindar-image-system="container: #user-interface;"
+                mindar-image="imageTargetSrc: ./markers.mind; autoStart: false; uiScanning: no;"
         >
 
             <a-entity id="lighting">
@@ -41,50 +42,39 @@
                 <a-entity light="type: directional; color: #FFF; intensity: 2.0; castShadow: true" position="-0.5 1 1"></a-entity>
             </a-entity>
 
-            <a-camera>
-                <a-cursor visible="false" raycaster="objects: .interactable"></a-cursor>
+            <a-camera look-controls="enabled: false;">
+                <a-cursor visible="false" rayOrigin="mouse;" raycaster="objects: .interactable"></a-cursor>
             </a-camera>
 
             <a-assets id="hit-test-models">
-                <a-asset-item id="carriage-gltf" src="./art/SM_Carriage.gltf"></a-asset-item>
-                <a-asset-item id="train-gltf" src="./art/SM_Train.gltf"></a-asset-item>
                 <a-asset-item id="tide-clock-gltf" src="./art/SM_TideClock.gltf"></a-asset-item>
+                <a-asset-item id="train-gltf" src="./art/SM_Train.gltf"></a-asset-item>
+                <a-asset-item id="carriage-gltf" src="./art/SM_Carriage.gltf"></a-asset-item>
             </a-assets>
 
             <a-entity id="ar-markers">
-                <a-entity id= "ar-marker-powder-monkey" mindar-image-target="targetIndex: 0">
-                    <a-box color="red"></a-box>
-                    <a-plane class="interactable" scale="0.1 0.1 0.1" visible="false" event-set__enter="_event: mouseenter; _target: #powder-monkey-text; visible: true" event-set__leave="_event: mouseleave; _target: #powder-monkey-text; visible: false">>  
-                        <a-text id="powder-monkey-text" value="Powder Monkey Brewery" align="center" scale="0.1 0.1 0.1" color="#FFF" visible="false" geometry="primitive: plane; width: 1.75" material="color: #333"></a-text>
-                    </a-plane>
+                <a-entity id= "ar-marker-tide-clock" mindar-image-target="targetIndex: 0">
+                    <a-text id="tide-clock-text" class="interactable" value="Tide Clock" align="center" color="#FFF" geometry="primitive: plane; width: 1.75" material="color: #333; opacity: 0.25" event-set__click="_event: click; color: red"></a-text>
                 </a-entity>
                 <a-entity id= "ar-marker-explosion-museum" mindar-image-target="targetIndex: 1">
-                    <a-sphere color="green"></a-sphere>
-                    <a-plane class="interactable" scale="0.1 0.1 0.1" visible="false" event-set__enter="_event: mouseenter; _target: #explosion-museum-text; visible: true" event-set__leave="_event: mouseleave; _target: #explosion-museum-text; visible: false">>
-                        <a-text id="explosion-museum-text" value="Explosion Museum of Naval Firepower" align="center" scale="0.1 0.1 0.1" color="#FFF" visible="false" geometry="primitive: plane; width: 1.75" material="color: #333"></a-text>
-                    </a-plane>
+                    <a-text id="explosion-museum-text" class="interactable" value="Explosion Museum \n of Naval Firepower" align="center"  color="#FFF" geometry="primitive: plane; width: 1.75" material="color: #333; opacity: 0.25"></a-text>
                 </a-entity>
-                <a-entity id= "ar-marker-tide-clock" mindar-image-target="targetIndex: 2">
-                    <a-torus color="blue"></a-torus>
-                    <a-plane class="interactable" scale="0.1 0.1 0.1" visible="false" event-set__enter="_event: mouseenter; _target: #tide-clock-text; visible: true" event-set__leave="_event: mouseleave; _target: #tide-clock-text; visible: false">>
-                        <a-text id="tide-clock-text" value="Tide Clock" align="center" scale="0.1 0.1 0.1" color="#FFF" visible="false" geometry="primitive: plane; width: 1.75" material="color: #333"></a-text>
-                    </a-plane>
+                <a-entity id= "ar-marker-powder-monkey" mindar-image-target="targetIndex: 2">
+                    <a-text id="powder-monkey-text" class="interactable" value="Powder Monkey \n Brewery" align="center" color="#FFF" geometry="primitive: plane; width: 1.75" material="color: #333; opacity: 0.25"></a-text>
                 </a-entity>
             </a-entity>
             
             <a-entity id="hit-test-targets">
-                <a-entity id="carriage" gltf-model="#carriage-gltf" visible="false" animation-mixer="loop: pingpong;"></a-entity>
-                <a-entity id="train" gltf-model="#train-gltf" visible="false" scale="0.1 0.1 0.1"></a-entity>
                 <a-entity id="tide-clock" gltf-model="#tide-clock-gltf" visible="false"></a-entity>
+                <a-entity id="train" gltf-model="#train-gltf" visible="false" scale="0.1 0.1 0.1"></a-entity>
+                <a-entity id="carriage" gltf-model="#carriage-gltf" visible="false" animation-mixer="loop: pingpong;"></a-entity>
             </a-entity>
             <a-entity id="webxr-scenes">
-                <a-entity id="carriage-scene" webxr-session="hitTestTargetElement: #carriage; elementsToHide: #ar-entry-buttons; elementsToShow: #ar-exit-button;"></a-entity>
-                <a-entity id="train-scene" webxr-session="hitTestTargetElement: #train; elementsToHide: #ar-entry-buttons; elementsToShow: #ar-exit-button;"></a-entity>
-                <a-entity id="tide-clock-scene" webxr-session="hitTestTargetElement: #tide-clock; elementsToHide: #ar-entry-buttons; elementsToShow: #ar-exit-button;"></a-entity>
+                <a-entity id="tide-clock-scene" webxr-session="hitTestTargetElement: #tide-clock; elementsToHide: #ar-entry-buttons, #start-scanning; elementsToShow: #ar-exit-button;"></a-entity>
+                <a-entity id="train-scene" webxr-session="hitTestTargetElement: #train; elementsToHide: #ar-entry-buttons, #start-scanning; elementsToShow: #ar-exit-button;"></a-entity>
+                <a-entity id="carriage-scene" webxr-session="hitTestTargetElement: #carriage; elementsToHide, #start-scanning: #ar-entry-buttons; elementsToShow: #ar-exit-button;"></a-entity>
             </a-entity>
 
-
-            
         </a-scene>
 
         <!-- Interface overlay -->
@@ -92,17 +82,17 @@
             <h1>Gosport Trail WebAR Demo</h1>
             <p>Tap the images to load an AR asset, wait for the ground marker to appear, then tap to place!</p>
 
-            <button id="start-scanning" onclick="">Start Scanning</button>
+            <button id="start-scanning" onclick="document.querySelector('a-scene').systems['mindar-image-system'].start();">Start Scanning</button>
 
             <div id="ar-entry-buttons">
-                <button id="ar-powder-monkey-button" class="button-image" type="button" onclick="document.querySelector('#carriage-scene').components['webxr-session'].events.startARSession();"> 
-                    <img src="./art/ui/T_Marker_PowderMonkeyBrewery.png" height="64" width="64"></img>
+                <button id="ar-tide-clock-button" class="button-image" type="button" onclick="document.querySelector('#tide-clock-scene').components['webxr-session'].events.startARSession();"> 
+                    <img src="./art/ui/T_Marker_Clock.png" height="64" width="64"></img>
                 </button>
                 <button id="ar-explosion-museum-button" class="button-image" type="button" onclick="document.querySelector('#train-scene').components['webxr-session'].events.startARSession();"> 
                     <img src="./art/ui/T_Marker_ExplosionMuseum.png" height="64" width="64"></img>
                 </button>
-                <button id="ar-tide-clock-button" class="button-image" type="button" onclick="document.querySelector('#tide-clock-scene').components['webxr-session'].events.startARSession();"> 
-                    <img src="./art/ui/T_Marker_Clock.png" height="64" width="64"></img>
+                <button id="ar-powder-monkey-button" class="button-image" type="button" onclick="document.querySelector('#carriage-scene').components['webxr-session'].events.startARSession();"> 
+                    <img src="./art/ui/T_Marker_PowderMonkeyBrewery.png" height="64" width="64"></img>
                 </button>
             </div>
 

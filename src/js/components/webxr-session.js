@@ -11,9 +11,8 @@ AFRAME.registerComponent('webxr-session', {
     init: function () {
         this.isActive = false;
         this.el.setAttribute('element-visibility');
+        this.xrRenderer = this.el.sceneEl.renderer.xr;
     },
-
-
 
     events: {
         startARSession: function () {
@@ -28,12 +27,12 @@ AFRAME.registerComponent('webxr-session', {
                     this.el.sceneEl.exitVR();
                 }
                 return;
-            }
+            } 
             console.log("Entering AR");
 
             this.el.sceneEl.removeEventListener('exit-vr', this.events.startARSession);
 
-            this.isActive = true
+            this.isActive = true;
             this.el.sceneEl.setAttribute('ar-hit-test', 'enabled', true);
             this.el.sceneEl.setAttribute('ar-hit-test', 'target', this.data.hitTestTargetElement);
             console.log("Hit test target set to " + this.data.hitTestTargetElement.id);
@@ -43,7 +42,7 @@ AFRAME.registerComponent('webxr-session', {
     
             this.el.sceneEl.enterAR();
             this.el.components['element-visibility'].setElementsVisibility(this.data.elementsToHide, "hidden");
-            this.el.components['element-visibility'].setElementsVisibility(this.data.elementsToShow, "visible")
+            this.el.components['element-visibility'].setElementsVisibility(this.data.elementsToShow, "visible");
         },
     
         stopARSession: function () {
